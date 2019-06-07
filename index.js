@@ -50,6 +50,14 @@ app.put('/books/:id', (req,res)=> {
     return res.send(book);
 });
 
+app.delete('/books/:id', (req,res)=>{
+    //using the filter() method to create a new array without the book
+    let result = books.filter(c => c.id !== req.params.id);
+    //the 'books' array gets the value of the result array 
+    books = result; 
+    return res.send(books); 
+});
+
 
 
 const port = 3000;
