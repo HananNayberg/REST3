@@ -20,7 +20,10 @@ app.get('/books', (req,res) => {
 });
 
 app.get('/books/:id', (req,res)=> {
-    let book = books[req.params.id]; 
+    //running the find() method with a function that compares the params id to an id within the array obeject
+    let book = books.find(c => c.id === req.params.id);
+    //in case no book is found
+    if (!book) res.status(404).send('<h2 style="font-family: Malgun Gothic; color: darkred;">Not Found!! </h2>');
     return res.send(book);
 });
 
@@ -33,6 +36,18 @@ app.post('/books', (req,res)=>{
     };
     books.push(book);
     return res.send(books);
+});
+
+app.put('/books/:id', (req,res)=> {
+    //running the find() method with a function that compares the params id to an id within the array obeject
+    let book = books.find(c => c.id === req.params.id);
+    //in case no book is found
+    if (!book) res.status(404).send('<h2 style="font-family: Malgun Gothic; color: darkred;">Not Found!! </h2>');
+
+
+    book.title = req.body.title;
+    book.author = req.body.author;
+    return res.send(book);
 });
 
 
